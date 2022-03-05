@@ -4,9 +4,9 @@ const Category = require("../schema/categorySchema");
 
 router.route("/getCategory").post((req, res) => {
   const { id } = req.body;
-  Category.findOne({ id }, (err, category) => {
+  Category.find({ id }, (err, category) => {
     if (err) console.log(err);
-    else res.json([category]);
+    else res.send(category);
   });
 });
 
