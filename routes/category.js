@@ -11,7 +11,7 @@ router.route("/getCategory").post((req, res) => {
 });
 
 router.route("/addCategory").post((req, res) => {
-  const { name, id } = req.body;
+  const { name, id, memo } = req.body;
 
   Category.findOne({ name, id }, (err, account) => {
     if (err) console.log(err);
@@ -22,6 +22,7 @@ router.route("/addCategory").post((req, res) => {
         const newCategory = new Category({
           name,
           id,
+          memo,
         });
 
         newCategory.save().then(() => {
