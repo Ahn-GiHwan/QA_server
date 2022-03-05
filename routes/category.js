@@ -50,4 +50,14 @@ router.route("/addCategory").post((req, res) => {
   });
 });
 
+router.route("/setCategory/_id").delete((req, res) => {
+  const { _id } = req.params;
+  Category.deleteOne({ _id }, (err, category) => {
+    if (err) {
+      console.log(err);
+      res.json({ success: false });
+    } else res.json({ success: true });
+  });
+});
+
 module.exports = router;
