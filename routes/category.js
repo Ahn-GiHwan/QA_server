@@ -50,7 +50,7 @@ router.route("/addCategory").post((req, res) => {
   });
 });
 
-router.route("/deleteCategory/_id").delete((req, res) => {
+router.route("/deleteCategory/:_id").delete((req, res) => {
   const { _id } = req.params;
   Category.deleteOne({ _id }, (err, category) => {
     if (err) {
