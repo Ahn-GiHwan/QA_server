@@ -10,6 +10,14 @@ router.route("/getCategory").post((req, res) => {
   });
 });
 
+router.route("/setCategory").patch((req, res) => {
+  const { _id, name, memo } = req.body;
+  Category.updateOne({ _id }, { name, memo }, (err, category) => {
+    if (err) console.log(err);
+    else res.json({ success: true });
+  });
+});
+
 router.route("/addCategory").post((req, res) => {
   const { name, id, memo } = req.body;
 
