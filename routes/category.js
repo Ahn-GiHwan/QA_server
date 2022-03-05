@@ -2,6 +2,14 @@ const express = require("express");
 const router = express.Router();
 const Category = require("../schema/categorySchema");
 
+router.route("/getCategory/:_id").get((req, res) => {
+  const { _id } = req.params;
+  Category.find({ _id }, (err, category) => {
+    if (err) console.log(err);
+    else res.send(category);
+  });
+});
+
 router.route("/getCategory").post((req, res) => {
   const { id } = req.body;
   Category.find({ id }, (err, category) => {
@@ -13,8 +21,9 @@ router.route("/getCategory").post((req, res) => {
 router.route("/setCategory").patch((req, res) => {
   const { _id, name, memo } = req.body;
   Category.updateOne({ _id }, { name, memo }, (err, category) => {
-    if (err) console.log(err);
-    else res.json({ success: true });
+    if (err) {
+      console.log(err);
+    } else res.json({ success: true });
   });
 });
 
