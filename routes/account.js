@@ -10,11 +10,14 @@ router.route("/isId").post((req, res) => {
   });
 });
 
-router.route("/login").post((req, res) => {
+router.route("/signin").post((req, res) => {
   const { id, pw } = req.body;
   Account.findOne({ id, pw }, (err, account) => {
     if (err) console.log(err);
-    else res.send(account);
+    else {
+      if (account) res.json({ success: true, account: { id, pw } });
+      else res.json({ success: false });
+    }
   });
 });
 
@@ -22,13 +25,22 @@ router.route("/login").post((req, res) => {
 router.route("/signup").post((req, res) => {
   const { id, pw } = req.body;
 
-  const newAccount = new Account({
-    id,
-    pw,
-  });
+  Account.findOne({ id }, (err, account) => {
+    if (err) console.log(err);
+    else {
+      if (account) {
+        const newAccount = new Account({
+          id,
+          pw,
+        });
 
-  newAccount.save().then((set) => {
-    res.json(set);
+        newAccount.save().then((account) => {
+          res.json({ ...account, success: true });
+        });
+      } else {
+        res.json({ success: false });
+      }
+    }
   });
 });
 
