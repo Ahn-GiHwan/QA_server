@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const accountRouter = require("./routes/account");
+const categoryRouter = require("./routes/category");
 require("dotenv").config();
 
 const app = express();
@@ -19,6 +20,7 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use("/account", accountRouter);
+app.use("/category", categoryRouter);
 
 app.listen(process.env.PORT || 5555, () => {
   console.log("start server port - 5555");
