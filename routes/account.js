@@ -29,6 +29,8 @@ router.route("/signup").post((req, res) => {
     if (err) console.log(err);
     else {
       if (account) {
+        res.json({ success: false });
+      } else {
         const newAccount = new Account({
           id,
           pw,
@@ -37,8 +39,6 @@ router.route("/signup").post((req, res) => {
         newAccount.save().then((account) => {
           res.json({ ...account, success: true });
         });
-      } else {
-        res.json({ success: false });
       }
     }
   });
