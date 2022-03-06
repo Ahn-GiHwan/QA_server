@@ -37,8 +37,9 @@ router.route("/addQA").post((req, res) => {
     id,
   });
 
-  newQA.save().then(() => {
-    res.json({ success: true });
+  newQA.save().then((err) => {
+    if (err) res.json({ success: false });
+    else res.json({ success: true });
   });
 });
 
