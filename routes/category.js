@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Category = require("../schema/categorySchema");
+const QA = require("../schema/QASchema");
 
 router.route("/getCategory/:_id").get((req, res) => {
   const { _id } = req.params;
@@ -53,6 +54,12 @@ router.route("/addCategory").post((req, res) => {
 router.route("/deleteCategory/:_id").delete((req, res) => {
   const { _id } = req.params;
   Category.deleteOne({ _id }, (err, category) => {
+    if (err) {
+      console.log(err);
+      res.json({ success: false });
+    } else res.json({ success: true });
+  });
+  QA.deleteMany({ categoryId: _id }, (err) => {
     if (err) {
       console.log(err);
       res.json({ success: false });
