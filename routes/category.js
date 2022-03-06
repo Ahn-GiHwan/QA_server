@@ -57,13 +57,14 @@ router.route("/deleteCategory/:_id").delete((req, res) => {
     if (err) {
       console.log(err);
       res.json({ success: false });
-    } else res.json({ success: true });
-  });
-  QA.deleteMany({ categoryId: _id }, (err) => {
-    if (err) {
-      console.log(err);
-      res.json({ success: false });
-    } else res.json({ success: true });
+    } else {
+      QA.deleteMany({ categoryId: _id }, (err) => {
+        if (err) {
+          console.log(err);
+          res.json({ success: false });
+        } else res.json({ success: true });
+      });
+    }
   });
 });
 
